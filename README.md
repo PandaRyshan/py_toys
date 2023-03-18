@@ -1,8 +1,13 @@
-It's a flask starter project. Trying to learn python in actions.
+# PandaToys
+
+It's a flask starter project, like a toy. I'm trying to learn python in actions.
 
 ---
 
+## Usage
+
 1. create `.env` in root dir and put your environment in it, like:
+
    ```python
    # .env file
    Flask_APP=src:create_app()
@@ -12,6 +17,7 @@ It's a flask starter project. Trying to learn python in actions.
    ```
 
 2. start project from shell:
+
    ```shell
    # install dependencies. you could install pytest with `pip install -e .[test]`
    pip install -e .
@@ -20,4 +26,3 @@ It's a flask starter project. Trying to learn python in actions.
    flask init-db
    flask run
    ```
-
