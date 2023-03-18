@@ -1,0 +1,15 @@
+# ide dir
+.vscode/
+
+# project dir
+venv/
+__pycache__/
+build/
+assistant.egg-info/
+
+# dev file
+.ruff_cache
+assistant.session.sql
+
+# env file
+.env
