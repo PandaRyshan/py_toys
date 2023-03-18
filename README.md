@@ -13,8 +13,11 @@ It's a flask starter project. Trying to learn python in actions.
 
 2. start project from shell:
    ```shell
+   # install dependencies. you could install pytest with `pip install -e .[test]`
    pip install -e .
 
+   # init db file
+   flask init-db
    flask run
    ```
 
