@@ -31,33 +31,37 @@
                 </tr>
             </thead>
             <tbody>
+                {% for speech in speechs %}
                 <tr>
-                    <td>Description 1</td>
-                    <td>
-					</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Description 2 Description 2 Description 2 Description 2 Description 2 Description 2</td>
+                    <td>{{ speech.desc }}</td>
                     <td>
 						<audio controls="">
-							<source src="{{ url_for('static', filename='thats it.mp3') }}" type="audio/mpeg">
+							<source src="{{ url_for('static', filename=speech.filepath) }}" type="audio/mpeg">
 						</audio>
 					</td>
                     <td>
-                        <a href="{{ url_for('static', filename='thats it.mp3') }}" class="btn" download>
+                        <a href="{{ url_for('static', filename=speech.filepath) }}" class="btn" download>
                             <i class="fa fa-download"></i> Download </a>
                     </td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                {% if speechs.has_prev %}
+                    <li class="page-item"><a class="page-link">Previous</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                {% endif %}
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item active" aria-current="page"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                {% if speechs.has_next %}
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>

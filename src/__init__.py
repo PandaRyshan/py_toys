@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, url_for
 from flask.cli import load_dotenv
 
 
@@ -15,6 +15,7 @@ def create_app(test_config=None):
         SECRET_KEY=os.environ['SECRET_KEY'],
         # store the database in the instance folder
         DATABASE=os.environ['DATABASE'],
+        SQLALCHEMY_DATABASE_URI=os.environ['SQLALCHEMY_DATABASE_URI']
     )
 
     if test_config is None:
@@ -30,22 +31,26 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/')
+    @app.route('/', endpoint='index')
     def hello():
-        return render_template('index.html')
+        return redirect(url_for("speech.list"))
 
-    # register the database commands
+    # register the database commands (sqlite3)
+    # from . import db
+    # db.init_app(app)
+
+    # register the database commands (sqlalchemy)
     from . import db
-
     db.init_app(app)
 
     # apply the blueprints to the app
     from .views.user import bp as user_bp
-    from .views.text_to_speech import bp as ms_bp
+    from .views.speech import bp as speech_bp
 
     app.register_blueprint(user_bp)
-    app.register_blueprint(ms_bp)
+    app.register_blueprint(speech_bp)
 
+    # dynamically create url rules for the index view
     app.add_url_rule('/', endpoint='index')
 
     return app

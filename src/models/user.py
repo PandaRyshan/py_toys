@@ -1,11 +1,14 @@
+import sqlalchemy as sa
+
 from flask_login import LoginManager
-from . import db
+from src.db import db
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
+    user_name = sa.Column(sa.String(30), unique=True, nullable=False)
+    name = sa.Column(sa.String(80), nullable=False)
+    email = sa.Column(sa.String(30), unique=True, nullable=False)
 
 
 # Initialize login manager
