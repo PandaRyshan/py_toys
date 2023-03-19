@@ -22,15 +22,11 @@ function submitForm() {
     document.getElementById("submit-btn").disabled = true;
     document.getElementById("submit-btn").textContent = "Processing...";
 
-    let formData = new FormData(document.getElementById('my-form'));
-    console.log(formData.get('input-text'));
-  
     // 使用 fetch 或其他方式提交表单，处理完成后恢复按钮状态
-    fetch('/ms/start', {
+    fetch('/speech/save', {
         method: 'POST',
         body: new FormData(document.getElementById('my-form'))
     }).then(response => {
-        console.log(response);
         // 请求成功，将按钮文本恢复为原文本，启用按钮
         document.getElementById("submit-btn").disabled = false;
         document.getElementById("submit-btn").textContent = "Commit";

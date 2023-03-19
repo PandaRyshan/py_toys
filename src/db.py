@@ -1,54 +1,40 @@
-import sqlite3
 import click
 
 from flask import current_app
-from flask import g
+from flask_sqlalchemy import SQLAlchemy
 from flask.cli import with_appcontext
+from sqlalchemy import text
 
 
-def get_db():
-    """Connect to the application's configured database. The connection
-    is unique for each request and will be reused if this is called
-    again.
-    """
-    if "db" not in g:
-        g.db = sqlite3.connect(
-            current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
-
-    return g.db
+db = SQLAlchemy()
 
 
-def close_db(e=None):
-    """If this request connected to the database, close the
-    connection.
-    """
-    db = g.pop("db", None)
+def init_app(app):
+    db.init_app(app)
+    app.cli.add_command(init_db_command)
 
-    if db is not None:
-        db.close()
+
+@click.command("init-db")
+@click.option("--drop", is_flag=True, help="Create after drop.")
+@with_appcontext
+def init_db_command(drop):
+
+    """Clear existing data and create new tables."""
+    if drop:
+        click.confirm("This operation will delete the database, do you want to continue?", abort=True)
+        db.drop_all()
+        click.echo("Droped all tables.")
+
+    # if define models in submodules must import them so that
+    # SQLAlchemy knows about them before calling create_all
+    import models
+    db.create_all()
+    click.echo("Initialized the database.")
 
 
 def init_db():
     """Clear existing data and create new tables."""
-    db = get_db()
 
     with current_app.open_resource("schema.sql") as f:
-        db.executescript(f.read().decode("utf8"))
-
-
-@click.command("init-db")
-@with_appcontext
-def init_db_command():
-    """Clear existing data and create new tables."""
-    init_db()
-    click.echo("Initialized the database.")
-
-
-def init_app(app):
-    """Register database functions with the Flask app. This is called by
-    the application factory.
-    """
-    app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
+        db.session.execute(text(f.read().decode("utf8")))
+        db.session.commit()
