@@ -10,10 +10,16 @@ It's a flask starter project, like a toy. I'm trying to learn python in actions.
 
    ```python
    # .env file
-   Flask_APP=src:create_app()
-   Flask_DEBUG=True
+   FLASK_APP=src:create_app()
+   FLASK_DEBUG=True
    SECRET_KEY='dev'
-   DATABASE=os.path.join(app.instance_path, 'assistant.sqlite')
+   # if you use sqlite3
+   DATABASE=os.path.join(app.instance_path, 'db.sqlite')
+   # if you use sqlalchemy
+   SQLALCHEMY_DATABASE_URI=sqlite:///db.sqlite
+   # MS Speech SDK
+   MS_SPEECH_KEY=
+   MS_SPEECH_REGION=
    ```
 
 2. start project from shell:
@@ -22,7 +28,7 @@ It's a flask starter project, like a toy. I'm trying to learn python in actions.
    # install dependencies. you could install pytest with `pip install -e .[test]`
    pip install -e .
 
-   # init db file
+   # init db file, use --drop to drop all tables
    flask init-db
    flask run
    ```
