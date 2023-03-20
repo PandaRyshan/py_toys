@@ -30,6 +30,8 @@ function submitForm() {
         // 请求成功，将按钮文本恢复为原文本，启用按钮
         document.getElementById("submit-btn").disabled = false;
         document.getElementById("submit-btn").textContent = "Commit";
+        // 暂时以刷新页面的方式处理后端返回的数据
+        location.reload();
     }).catch(error => {
         // 请求失败，将按钮文本恢复为原文本，启用按钮
         document.getElementById("submit-btn").disabled = false;

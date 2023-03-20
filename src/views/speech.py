@@ -13,7 +13,8 @@ bp = Blueprint("speech", __name__, url_prefix="/speech")
 @bp.route("/list", methods=["GET"], endpoint="list")
 def list():
     page = request.args.get("page", 1, type=int)
-    per_page = 10
+    # load 20 speechs per page temporarily
+    per_page = 20
     # speechs = db.paginate(
     #     select=db.select(Speech).order_by(Speech.created_at),
     #     page=page, per_page=per_page, count=True)
@@ -43,7 +44,10 @@ def process(input_text, desc):
         filename = "_".join(descs)
     filename = f"{filename}_{now}.wav"
     relative_filepath = f"speech/{filename}"
-    normalize_filepath = os.path.normpath(f"{current_app.static_folder}/{relative_filepath}")
+    normalized_filepath = os.path.normpath(f"{current_app.static_folder}/{relative_filepath}")
+
+    if not os.path.exists(f"{current_app.static_folder}{os.sep}speech"):
+        os.makedirs(f"{current_app.static_folder}{os.sep}speech")
 
     speech_key, service_region = os.environ.get("MS_SPEECH_KEY"), os.environ.get("MS_SPEECH_REGION")
     speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
@@ -53,7 +57,7 @@ def process(input_text, desc):
 
     # Creates an audio configuration that points to an audio file.
     audio_config = speechsdk.audio.AudioOutputConfig(
-        use_default_speaker=False, filename=normalize_filepath)
+        use_default_speaker=False, filename=normalized_filepath)
 
     # Creates a speech synthesizer using the default speaker as audio output.
     speech_synthesizer = speechsdk.SpeechSynthesizer(

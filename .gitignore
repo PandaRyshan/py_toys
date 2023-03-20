@@ -15,7 +15,8 @@ assistant.session.sql
 .env
 
 # output dir
-src/static/speech/
+/src/static/speech/
 
 # db
+/instance/
 .sqlite
