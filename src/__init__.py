@@ -45,7 +45,6 @@ def create_app(test_config=None):
     db.init_app(app)
 
     with app.app_context():
-        import models
         db.init_db()
 
     # apply the blueprints to the app
