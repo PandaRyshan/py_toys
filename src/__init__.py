@@ -44,6 +44,10 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
+    with app.app_context():
+        import models
+        db.create_all()
+
     # apply the blueprints to the app
     from .views.user import bp as user_bp
     from .views.speech import bp as speech_bp
