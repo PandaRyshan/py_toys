@@ -25,7 +25,7 @@ RUN set -x \
     && rm -f libssl-dev_1.1.1f-1ubuntu2.17_amd64.deb \
     && pip install -e .[prod]
 
-CMD [ "gunicorn", "src:create_app()", "-c", "gunicorn_config.py" ]
+CMD [ "gunicorn", "-c", "gunicorn.conf.py", "src:create_app()" ]
 # CMD [ "flask", "run" ]
 
 EXPOSE 8000
