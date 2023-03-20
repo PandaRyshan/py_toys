@@ -30,11 +30,3 @@ def init_db_command(drop):
     import models
     db.create_all()
     click.echo("Initialized the database.")
-
-
-def init_db():
-    """Clear existing data and create new tables."""
-
-    with current_app.open_resource("schema.sql") as f:
-        db.session.execute(text(f.read().decode("utf8")))
-        db.session.commit()

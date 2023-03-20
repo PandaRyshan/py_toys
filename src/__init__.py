@@ -1,6 +1,7 @@
 import os
+import logging
 
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect,  url_for
 from flask.cli import load_dotenv
 
 
@@ -42,6 +43,7 @@ def create_app(test_config=None):
     # register the database commands (sqlalchemy)
     from . import db
     db.init_app(app)
+    db.init_db()
 
     # apply the blueprints to the app
     from .views.user import bp as user_bp
