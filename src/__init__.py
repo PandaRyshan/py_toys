@@ -43,7 +43,6 @@ def create_app(test_config=None):
     # register the database commands (sqlalchemy)
     from . import db
     db.init_app(app)
-    db.init_db()
 
     # apply the blueprints to the app
     from .views.user import bp as user_bp
