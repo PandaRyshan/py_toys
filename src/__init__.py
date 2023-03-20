@@ -46,7 +46,7 @@ def create_app(test_config=None):
 
     with app.app_context():
         import models
-        db.create_all()
+        db.init_db()
 
     # apply the blueprints to the app
     from .views.user import bp as user_bp
