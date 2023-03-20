@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 
-from src.db import db
+from ..db import db
 
 
 class Speech(db.Model):

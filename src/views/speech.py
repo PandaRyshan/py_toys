@@ -3,8 +3,8 @@ import azure.cognitiveservices.speech as speechsdk
 
 from flask import Blueprint, render_template, request, jsonify, current_app
 from datetime import datetime
-from models.speech import Speech
-from src.db import db
+from ..models.speech import Speech
+from ..db import db
 
 
 bp = Blueprint("speech", __name__, url_prefix="/speech")

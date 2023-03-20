@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 
 from flask_login import LoginManager
-from src.db import db
+from ..db import db
 
 
 class User(db.Model):
