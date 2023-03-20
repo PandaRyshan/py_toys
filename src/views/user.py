@@ -1,7 +1,7 @@
-from models.user import User
 from flask import render_template
 from flask import Blueprint
-from src.db import db
+from ..models.user import User
+from ..db import db
 
 
 bp = Blueprint("user", __name__, url_prefix="/user")
