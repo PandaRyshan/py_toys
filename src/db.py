@@ -20,7 +20,7 @@ def init_db():
 
 
 @click.command("init-db")
-#@click.option("--drop", is_flag=True, help="Create after drop.")
+# @click.option("--drop", is_flag=True, help="Create after drop.")
 @with_appcontext
 def init_db_command(drop):
 
