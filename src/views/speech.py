@@ -14,7 +14,7 @@ bp = Blueprint("speech", __name__, url_prefix="/speech")
 def list():
     page = request.args.get("page", 1, type=int)
     # load 20 speechs per page temporarily
-    per_page = 20
+    per_page = 30
     # speechs = db.paginate(
     #     select=db.select(Speech).order_by(Speech.created_at),
     #     page=page, per_page=per_page, count=True)
