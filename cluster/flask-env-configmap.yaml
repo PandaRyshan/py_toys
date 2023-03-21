@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-env
+  namespace: py-toys
+data:
+  FLASK_APP: "src:create_app()"
+  FLASK_DEBUG: "True"
+  FLASK_RUN_HOST: "0.0.0.0"
+  DATABASE: "os.path.join(app.instance_path, 'assistant.sqlite')"
+  SQLALCHEMY_DATABASE_URI: "sqlite:///assistant.sqlite"
