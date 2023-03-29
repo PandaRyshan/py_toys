@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-toys
+  namespace: py-toys
+  labels:
+    service: py-toys
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: py-toys
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: py-toys
+    spec:
+      containers:
+      - image: "aold619/py_toys:latest"
+        imagePullPolicy: Always
+        name: py-toys
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "0.5"
+          limits:
+            memory: "256Mi"
+            cpu: "1"
+        # envFrom:
+        # - configMapRef:
+        #     name: flask-env
+        volumeMounts:
+          - name: env-file
+            mountPath: /py_toys/.env
+          - name: audio-output
+            mountPath: /py_toys/src/static/speech/
+          - name: sqlite-instance
+            mountPath: /py_toys/instance/
+      volumes:
+        - name: env-file
+          hostPath:
+            path: /home/xiaohong/workspaces/py_toys/.env
+        - name: audio-output
+          hostPath:
+            path: /home/xiaohong/workspaces/py_toys/cluster/audio_output/
+        - name: sqlite-instance
+          hostPath:
+            path: /home/xiaohong/workspaces/py_toys/cluster/instance/
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30

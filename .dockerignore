@@ -1,0 +1,32 @@
+# ide dir
+.vscode/
+
+# project dir
+venv/
+__pycache__/
+build/
+*.egg-info/
+
+# dev file
+.ruff_cache
+assistant.session.sql
+
+# env file
+.env
+
+# output dir
+/src/static/speech/
+
+# db
+/instance/
+.sqlite
+
+# kube manifest
+/cluster/
+
+# git
+.git/
+.gitignore
+
+# README
+README.md

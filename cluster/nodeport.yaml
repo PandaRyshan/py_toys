@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: py-toys
+  name: py-toys-nodeport
+  namespace: py-toys
+spec:
+  ports:
+  - name: 8000-8000
+    nodePort: 30000
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: py-toys
+  type: NodePort
+status:
+  loadBalancer: {}
