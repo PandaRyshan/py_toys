@@ -25,12 +25,3 @@ spec:
   - hosts:
     - toys.pandas.run
     secretName: pytoys-tls
-status:
-  loadBalancer:
-    ingress:
-    - ip: 144.126.144.76
-    - ip: 2605:a141:2103:3856::1
-    - ip: 2605:a141:2103:3857::1
-    - ip: 2605:a141:2109:8615::1
-    - ip: 66.94.127.190
-    - ip: 85.239.233.1
