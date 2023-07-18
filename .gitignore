@@ -1,5 +1,6 @@
 # ide dir
 .vscode/
+*.code-workspace
 
 # project dir
 venv/
@@ -16,6 +17,10 @@ assistant.session.sql
 
 # output dir
 /src/static/speech/
+
+# kube manifest
+/cluster/audio_output/
+/cluster/instance/
 
 # db
 /instance/

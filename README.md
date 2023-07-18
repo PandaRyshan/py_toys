@@ -12,14 +12,14 @@ It's a flask starter project, like a toy. I'm trying to learn python in actions.
    # .env file
    FLASK_APP=src:create_app()
    FLASK_DEBUG=True
-   SECRET_KEY='dev'
+   SECRET_KEY='life-is-like-a-box-of-chocolates'
    # if you use sqlite3
    DATABASE=os.path.join(app.instance_path, 'db.sqlite')
    # if you use sqlalchemy
    SQLALCHEMY_DATABASE_URI=sqlite:///db.sqlite
    # MS Speech SDK
-   MS_SPEECH_KEY=
-   MS_SPEECH_REGION=
+   MS_SPEECH_KEY='heres-looking-at-you-kid'
+   MS_SPEECH_REGION='eastasia'
    ```
 
 2. start project from shell:
