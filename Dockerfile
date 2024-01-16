@@ -1,7 +1,9 @@
 FROM ubuntu:jammy
-LABEL maintainer="Hu Xiaohong <xiaohong@duckduck.io>"
+LABEL maintainer="Hu Xiaohong <xiaohong@pandas.run>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ARG LIB_VERSION=1.1_1.1.1f-1ubuntu2.20_amd64
 
 RUN set -x \
     && apt-get update \
@@ -12,13 +14,13 @@ RUN set -x \
         python3.10 \
         python3-pip \
         python3-venv \
-    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
-    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl-dev_1.1.1f-1ubuntu2.17_amd64.deb \
-    && dpkg -i libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
-    && dpkg -i libssl-dev_1.1.1f-1ubuntu2.17_amd64.deb \
+    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl${LIB_VERSION}.deb \
+    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl-dev_${LIB_VERSION}.deb \
+    && dpkg -i libssl${LIB_VERSION}.deb \
+    && dpkg -i libssl-dev_${LIB_VERSION}.deb \
     && rm -rf /var/lib/apt/lists/* \
-    && rm -f libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
-    && rm -f libssl-dev_1.1.1f-1ubuntu2.17_amd64.deb
+    && rm -f libssl${LIB_VERSION}.deb \
+    && rm -f libssl-dev_${LIB_VERSION}.deb
 
 WORKDIR /py_toys
 
